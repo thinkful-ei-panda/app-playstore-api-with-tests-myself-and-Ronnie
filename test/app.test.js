@@ -3,7 +3,7 @@ const supertest = require('supertest');
 
 const app = require('../index.js');
 
-describe('app GET / is working', ()=> {
+describe('app GET / is working & ...', ()=> {
   it('should work but with a link to app', () =>{
     return supertest(app)
       .get('/')
@@ -11,4 +11,16 @@ describe('app GET / is working', ()=> {
   });
   
 } );
+
+describe('app GET/ @ apps ', () => {
+  it( 'should reply with status 200 & ship back the json array' , () => {
+    return supertest(app)
+      .get('/apps')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then( res => {
+        expect(res.body).to.be.an('array');
+      });
+  });
+});
 
